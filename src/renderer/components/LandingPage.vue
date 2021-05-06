@@ -1,43 +1,27 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
-    <main>
-      <div class="left-side">
-        <span class="title">
-          Welcome to your new project!
-        </span>
-        <system-information></system-information>
-      </div>
-
-      <div class="right-side">
-        <div class="doc">
-          <div class="title">Getting Started</div>
-          <p>
-            electron-vue comes packed with detailed documentation that covers everything from
-            internal configurations, using the project structure, building your application,
-            and so much more.
-          </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
-        </div>
-        <div class="doc">
-          <div class="title alt">Other Documentation</div>
-          <button class="alt" @click="open('https://electron.atom.io/docs/')">Electron</button>
-          <button class="alt" @click="open('https://vuejs.org/v2/guide/')">Vue.js</button>
-        </div>
-      </div> 
-    </main>
+    <input type="file" @change="onFileChange">
+    <div>{{result}}</div>
   </div>
 </template>
 
 <script>
   import SystemInformation from './LandingPage/SystemInformation';
+  // import {msg1, msg2} from '../lib/message';
+  import {handleExcelData} from '../lib/util';
 
   export default {
       name: 'landing-page',
       components: { SystemInformation },
+      data () {
+          return {
+              result: ''
+          };
+      },
       methods: {
-          open (link) {
-              this.$electron.shell.openExternal(link);
+          async onFileChange (event) {
+              const data = await handleExcelData(event.target.files[0]);
+              this.result = JSON.stringify(data.results);
           }
       }
   };
@@ -62,7 +46,7 @@
         rgba(229, 229, 229, .9) 100%
       );
     height: 100vh;
-    padding: 60px 80px;
+    padding: 20px;
     width: 100vw;
   }
 

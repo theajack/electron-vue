@@ -22,8 +22,8 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "electron-vue",
-    "appId": "com.example.yourapp",
+    "productName": "tackchen-demo",
+    "appId": "com.example.tackchendemo",
     "directories": {
       "output": "build"
     },
@@ -56,12 +56,13 @@
     }
   },
   "dependencies": {
-    "vue": "^2.5.16",
     "axios": "^0.18.0",
+    "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0"
+    "vuex-electron": "^1.0.0",
+    "xlsx": "^0.16.9"
   },
   "devDependencies": {
     "ajv": "^6.5.0",
