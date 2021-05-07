@@ -6,22 +6,23 @@
 </template>
 
 <script>
-  import SystemInformation from './LandingPage/SystemInformation';
+  // import SystemInformation from './LandingPage/SystemInformation';
   // import {msg1, msg2} from '../lib/message';
   import {handleExcelData} from '../lib/util';
 
   export default {
       name: 'landing-page',
-      components: { SystemInformation },
+      // components: { SystemInformation },
       data () {
           return {
               result: ''
           };
       },
       methods: {
-          async onFileChange (event) {
-              const data = await handleExcelData(event.target.files[0]);
-              this.result = JSON.stringify(data.results);
+          onFileChange (event) {
+              handleExcelData(event.target.files[0], (res) => {
+                  this.result = JSON.stringify(res.results);
+              });
           }
       }
   };

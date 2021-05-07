@@ -2,7 +2,7 @@
 
 import {app, BrowserWindow} from 'electron';
 import '../renderer/store';
-import {initMessage} from './lib/message';
+// import {initMessage} from './lib/message';
 
 /**
  * Set `__static` path to static files in production
@@ -33,7 +33,7 @@ function createWindow () {
         mainWindow = null;
     });
 
-    initMessage();
+    // initMessage();
 }
 
 app.on('ready', createWindow);

@@ -23,7 +23,7 @@
   },
   "build": {
     "productName": "tackchen-demo",
-    "appId": "com.example.tackchendemo",
+    "appId": "com.example.tackchen-demo",
     "directories": {
       "output": "build"
     },
