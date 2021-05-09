@@ -1,12 +1,13 @@
 /*
  * @Author: tackchen
  * @Date: 2021-05-06 17:44:12
- * @LastEditors: tackchen
- * @LastEditTime: 2021-05-07 10:43:37
+ * @LastEditors: theajack
+ * @LastEditTime: 2021-05-09 17:33:25
  * @FilePath: \electron-vue\src\renderer\lib\util.js
  * @Description: Coding something
  */
 import XLSX from 'xlsx';
+import {networkInterfaces} from 'os';
 
 export function handleExcelData (file, callback) {
     const reader = new FileReader();
@@ -40,4 +41,20 @@ function getHeaderRow (sheet) {
         headers.push(hdr);
     }
     return headers;
+}
+
+const zeroRegex = /(?:[0]{1,2}[:-]){5}[0]{1,2}/;
+
+export function getMAC () {
+    const list = networkInterfaces();
+    // eslint-disable-next-line no-unused-vars
+    for (const [key, parts] of Object.entries(list)) {
+        if (!parts) continue;
+        for (const part of parts) {
+            if (zeroRegex.test(part.mac) === false) {
+                return part.mac;
+            }
+        }
+    }
+    throw new Error('failed to get the MAC address');
 }

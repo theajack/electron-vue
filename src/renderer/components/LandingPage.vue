@@ -2,30 +2,46 @@
   <div id="wrapper">
     <input type="file" @change="onFileChange">
     <div>{{result}}</div>
+    <button @click="sendMsgSync">sendMsgSync</button>
+    <button @click="sendMsg">sendMsg</button>
   </div>
 </template>
 
 <script>
-  // import SystemInformation from './LandingPage/SystemInformation';
-  // import {msg1, msg2} from '../lib/message';
-  import {handleExcelData} from '../lib/util';
+import { MSG_TYPE } from '../../constant';
+// import SystemInformation from './LandingPage/SystemInformation';
+import {postMessageSync, postMessage} from '../lib/message';
+import {handleExcelData} from '../lib/util';
+console.log('landing-page');
+export default {
+    name: 'landing-page',
+    // components: { SystemInformation },
+    data () {
+        return {
+            result: ''
+        };
+    },
+    methods: {
+        onFileChange (event) {
+            handleExcelData(event.target.files[0], (res) => {
+                this.result = JSON.stringify(res.results);
+            });
+        },
+        sendMsgSync () {
+            const result = postMessageSync(MSG_TYPE.TEST_SYNC_MSG);
+            console.log(result);
+        },
+        sendMsg () {
+            postMessage(MSG_TYPE.TEST_ASYNC_MSG, {
+                a: 'aaa'
+            }, (replyData) => {
+                console.log(replyData);
+            });
 
-  export default {
-      name: 'landing-page',
-      // components: { SystemInformation },
-      data () {
-          return {
-              result: ''
-          };
-      },
-      methods: {
-          onFileChange (event) {
-              handleExcelData(event.target.files[0], (res) => {
-                  this.result = JSON.stringify(res.results);
-              });
-          }
-      }
-  };
+            // console.log(replyData);
+        }
+    }
+};
 </script>
 
 <style>

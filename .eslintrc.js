@@ -34,5 +34,6 @@ module.exports = {
         'named': 'always',
         'asyncArrow': 'always'
     }],
+    'standard/no-callback-literal': 0
   }
 }
